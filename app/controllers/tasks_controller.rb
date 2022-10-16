@@ -55,6 +55,8 @@ class TasksController < ApplicationController
   
     def create
       @task = Task.new(task_params)
+      @user = User.first
+      @task.user = @user
       if @task.save
         flash[:success]= t("message.flash.success.type1") 
         redirect_to tasks_path
