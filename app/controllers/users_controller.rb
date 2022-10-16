@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
     skip_before_action :onlySingnIn, only: [:new, :create]
     before_action :onlySingnOut, only: [:new, :create]
+    #before_action :privileg, only: :show
 
     def new
         @user = User.new
@@ -37,6 +38,7 @@ class UsersController < ApplicationController
 
     def show
         @user = User.find(session[:auth]['id'])
+        
     end
 
     def destroy
@@ -44,5 +46,16 @@ class UsersController < ApplicationController
         @user.destroy
         redirect_to new_session_path, success: "compte supprimé", head: no_content
     end
+
+    private
+
+        def privileg
+            @user = User.find(session[:auth]['id'])
+            if params[:id] && params[:id] != session[:auth]['id'] 
+                puts "yo"
+                i = 1
+                redirect_to tasks_path, danger: "lol"
+            end
+        end
 
 end

@@ -9,6 +9,9 @@
                 <% if message.include?("Passwordを入力してください")%>
                     <% message = "パスワードを入力してください" %>
                 <% end %>
+                <% if message.include?("Password digestを入力してください")%>
+                    <% message = "パスワードを入力してください" %>
+                <% end %>
                 <% if message.include?("Emailは不正な値です")%>
                     <% message = "メールアドレスを入力してください" %>
                 <% end %>

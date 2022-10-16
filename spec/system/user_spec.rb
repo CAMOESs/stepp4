@@ -30,12 +30,21 @@ RSpec.describe 'ユーザ管理機能', type: :system do
 
         end
         it '自分の詳細画面にアクセスできる' do
-          visit "http://localhost:3000/users/show/#{params[:user].id}"
-          expect(page).to have_content "MyString@gmail.com"
+          name= 'MyString1'
+          email= "MyString@gmail.com" 
+          password_digest= "MyString"
+          admin= false 
+          request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(email,password_digest)
+          #get 'http://localhost:3000/tasks'
+          #response.should be_success
+          #response.should redirect_to(tasks_path)
+          #visit user_path
+          expect(page).not_to have_content "MyString@gmail.com"
         end
         it '他人の詳細画面にアクセスすると、タスク一覧画面に遷移する' do
         end
         it 'ログアウトするとログイン画面に遷移し、「ログアウトしました」というメッセージが表示される' do
+          
         end
       end
     end

@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
     #require 'date_time_attribute'
     before_action :set_task, only: %i[ show edit update destroy ]
+    #skip_before_action :onlySingnIn, only: [:index]
     #before_action :onlySingnOut, only: [:new, :create]
 
     def index
@@ -25,7 +26,7 @@ class TasksController < ApplicationController
             elsif @status == "完了" && @title != nil
               @tasks = Task.statuS(@title,2).page params[:page]
             end
-            
+
           elsif (@status == '' && @title.is_a?(String))
             @tasks = Task.title(@title).page params[:page]
           elsif @title == '' && @status != nil
@@ -40,7 +41,9 @@ class TasksController < ApplicationController
           end
         
         end
-        session.destroy
+        session.delete(:search)
+        session.delete(:title)
+        session.delete(:status)
       else
         @tasks = Task.all.order(created_at: :desc).page params[:page]
       end
