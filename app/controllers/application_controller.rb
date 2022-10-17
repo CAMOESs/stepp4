@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
     before_action :onlySingnIn
     helper_method :currentUser, :userSingnIn
     add_flash_types :success, :danger
+    #before_action :onlyAdmin
     
     private
 

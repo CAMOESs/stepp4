@@ -2,7 +2,6 @@ class SessionsController < ApplicationController
     
     skip_before_action :onlySingnIn, only: [:new, :create]
     before_action :onlySingnOut, only: [:new, :create]
-
     def new
 
     end

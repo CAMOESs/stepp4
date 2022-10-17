@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
     skip_before_action :onlySingnIn, only: [:new, :create]
     before_action :onlySingnOut, only: [:new, :create]
+
     #before_action :privileg, only: :show
 
     def new
