@@ -9,6 +9,18 @@ ja:
         create: "登録する"
         back:  "戻る"
         created_at: "作成日時"
+
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        name: 名前
+        #email: Eメール
+        #password_digest: パスワードダイジェスト
+        #password: パスワード
+
+ 
   global:
     menu:
       home: "タスク一覧"

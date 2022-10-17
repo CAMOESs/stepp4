@@ -26,12 +26,13 @@
   <div class="card-body">
         <div class="form-group">
             <%= form_for @task do |f| %>
-                <%= f.label :title , class: "control-label"%>
-                <div class="">
+
+                <%= f.label :title,"タイトル" , class: "control-label"%>
+                <div>
                     <%= f.text_field :title, class: "form-control " %>
                 </div>
-                <%= f.label :content, class: " control-label"%>
-                <div class="">
+                <%= f.label :content,"内容", class: " control-label"%>
+                <div>
                     <%= f.text_field :content, class: "form-control " %>
                 </div>
                 </br>

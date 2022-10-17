@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+<<<<<<< HEAD
   #require 'date_time_attribute'
   before_action :set_task, only: %i[ show edit update destroy ]
 
@@ -14,6 +15,92 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:success]= t("message.flash.success.type1") 
+=======
+    #require 'date_time_attribute'
+    before_action :set_task, only: %i[ show edit update destroy ]
+    #skip_before_action :onlySingnIn, only: [:index]
+    #before_action :onlySingnOut, only: [:new, :create]
+
+    def index
+      if params[:sort_deadline_on]
+        @tasks = Task.deadline_on.page params[:page]
+      elsif params[:sort_priority] && (conf != 1)
+        @tasks = Task.priority.page params[:page]
+          
+      elsif
+        @sess = session[:search]
+        @tasks = Task.all.order(created_at: :desc).page params[:page]
+        @title = session[:title]
+        @status = session[:status]
+        
+        if ((@title != nil || @status != nil))
+         
+          if @title != '' && @status !=''
+            if @status == "未着手" && @title != nil
+              @tasks = Task.statuS(@title,0).page params[:page]
+            elsif @status == "着手中" && @title != nil
+              @tasks = Task.statuS(@title,1).page params[:page]
+            elsif @status == "完了" && @title != nil
+              @tasks = Task.statuS(@title,2).page params[:page]
+            end
+
+          elsif (@status == '' && @title.is_a?(String))
+            @tasks = Task.title(@title).page params[:page]
+          elsif @title == '' && @status != nil
+            if @status == "未着手" 
+              @tasks = Task.status(0).page params[:page]
+            elsif @status == "着手中"
+              @tasks = Task.status(1).page params[:page]
+            elsif @status == "完了"
+              @tasks = Task.status(2).page params[:page]
+            end
+          
+          end
+        
+        end
+        session.delete(:search)
+        session.delete(:title)
+        session.delete(:status)
+      else
+        @tasks = Task.all.order(created_at: :desc).page params[:page]
+      end
+    end
+  
+    def new
+      @task = Task.new
+    end
+  
+    def create
+      @task = Task.new(task_params)
+      @user = User.first
+      @task.user = @user
+      if @task.save
+        flash[:success]= t("message.flash.success.type1") 
+        redirect_to tasks_path
+      else
+        render :new
+      end
+    end
+  
+    def show
+    end
+  
+    def edit
+    end
+  
+    def update
+      if @task.update(task_params)
+        flash[:success]=t("message.flash.success.type2")
+        redirect_to tasks_path
+      else
+        render :edit
+      end
+    end
+  
+    def destroy
+      @task.destroy
+      flash[:danger]=t("message.flash.danger")
+>>>>>>> step4
       redirect_to tasks_path
     else
       render :new
@@ -48,7 +135,11 @@ class TasksController < ApplicationController
     end
 
     def task_params
+<<<<<<< HEAD
       params.require(:task).permit(:title, :content)
+=======
+      params.require(:task).permit(:title, :content, :deadline_on,:priority, :status,:user_id)
+>>>>>>> step4
     end
 
     def relative_time_in_time_zone(time, zone)
