@@ -4,20 +4,9 @@
 <% if @task.errors.any? %>
         <div class="btn btn-danger" id="error_explanation"> 
 
-        <ul>
-        <% @task.errors.full_messages.each do |message|  %>
-            <%if message.include?("P") %>
-                <% message = "優先度を入力してください" %>
-            <% end %>
-            <%if message.include?("De")  %>
-                <% message = "終了期限を入力してください"%>
-            <% end %>
-            <%if message.include?("S")  %>
-                <%message = "ステータスを入力してください"%>
-            <% end %>
-          <li><%= message %></li>
-        <% end %>
-    </ul>
+            <ul>
+                    <li><%= @task.errors.full_messages[0] %> </li>
+            </ul>
         </div>
     <% end %>
 
@@ -35,18 +24,6 @@
                 <%= f.label :content, class: " control-label"%>
                 <div >
                     <%= f.text_field :content, class: "form-control " %>
-                </div>
-                <%= f.label :終了期限, class: " control-label"%>
-                <div>
-                <%= f.date_field :deadline_on, class: "form-control " %>
-                </div>
-                <%= f.label :優先度, class: " control-label "%>
-                <div class="form-control row">
-                <%= f.select :priority,["高", "中","低"], include_blank: true%>
-                </div>
-                <%= f.label :ステータス, class: " control-label "%>
-                <div class="form-control row">
-                <%= f.select :status,["未着手", "着手中","完了"], include_blank: true%>
                 </div>
                 </br>
                 <div>
