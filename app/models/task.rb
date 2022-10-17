@@ -1,9 +1,5 @@
 class Task < ApplicationRecord
-<<<<<<< HEAD
-        validates :title, presence: true
-        validates :content, presence: true
-        paginates_per 10
-=======
+
     validates :title, presence: true
     validates :content, presence: true
     validates :priority, presence: true
@@ -20,6 +16,5 @@ class Task < ApplicationRecord
     scope :priority, -> { all.order(priority: :asc)}
 
     belongs_to :user
->>>>>>> step4
     
 end
