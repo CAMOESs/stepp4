@@ -13,3 +13,4 @@ FactoryBot.define do
       content { '顧客へ営業のメールを送る。' }
     end
   end
+  task = Task.new(id: 1, title: "task#{1}", content:"content#{1}", deadline_on: Date.new, priority: 2, status: 1, user_id: 1)

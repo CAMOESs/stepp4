@@ -42,9 +42,12 @@ RSpec.describe 'ユーザ管理機能', type: :system do
           expect(page).not_to have_content "MyString@gmail.com"
         end
         it '他人の詳細画面にアクセスすると、タスク一覧画面に遷移する' do
+          post 'http://localhost:3000/users', params: { user: {name: 'MyString1',email: "MyString@gmail.com" ,password_digest: "MyString",admin: false } }
+          response.should redirect_to(tasks_path)
         end
         it 'ログアウトするとログイン画面に遷移し、「ログアウトしました」というメッセージが表示される' do
-          
+          post 'http://localhost:3000/users', params: { user: {name: 'MyString1',email: "MyString@gmail.com" ,password_digest: "MyString",admin: false } }
+          expect(page).not_to have_content "ログアウトしました" 
         end
       end
     end
@@ -52,6 +55,8 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     describe '管理者機能' do
       context '管理者がログインした場合' do
         it 'ユーザ一覧画面にアクセスできる' do
+          post 'http://localhost:3000/users', params: { user: {name: 'MyString1',email: "MyString@gmail.com" ,password_digest: "MyString",admin: true } }
+          expect(page).not_to have_content "ログアウトしました" 
         end
         it '管理者を登録できる' do
         end
