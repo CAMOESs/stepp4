@@ -84,33 +84,8 @@ class TasksController < ApplicationController
     def destroy
       @task.destroy
       flash[:danger]=t("message.flash.danger")
->>>>>>> step4
       redirect_to tasks_path
-    else
-      render :new
     end
-  end
-
-  def show
-  end
-
-  def edit
-  end
-
-  def update
-    if @task.update(task_params)
-      flash[:success]=t("message.flash.success.type2")
-      redirect_to tasks_path
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @task.destroy
-    flash[:danger]=t("message.flash.danger")
-    redirect_to tasks_path
-  end
 
   private
 
