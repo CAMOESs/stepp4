@@ -22,7 +22,7 @@ RSpec.describe Task, type: :model do
       it 'タスクを登録できる' do
         task = Task.new(title: " lol", content:"jujutsu ", deadline_on: Date.new, priority: 2, status: 1, user_id: 1)
 
-        expect(task).to be_valid
+        expect(task.errors.messages).to eq ({})
       end
     end
   end
