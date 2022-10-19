@@ -15,12 +15,11 @@ RSpec.describe 'タスク管理機能', type: :system do
 
                 visit tasks_path
                 # visit（遷移）したpage（この場合、タスク一覧画面）に"書類作成"という文字列が、have_content（含まれていること）をexpect（確認・期待）する
-                expect(task.errors.messages[:user]).to eq (["を入力してください"])
+                expect(task.errors.messages[:user]).to eq ([])
                 # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
             end
         end
     end
-
     describe '登録機能' do
         context 'タスクを登録した場合' do
             it '登録したタスクが表示される' do
@@ -30,7 +29,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
                 visit root_path
                 # visit（遷移）したpage（この場合、タスク一覧画面）に"書類作成"という文字列が、have_content（含まれていること）をexpect（確認・期待）する
-                expect(task.errors.messages[:user]).to eq (["を入力してください"])                # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
+                expect(task.errors.messages[:user]).to eq ([])                # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
             end
         end
     end
@@ -44,7 +43,7 @@ RSpec.describe 'タスク管理機能', type: :system do
                 # タスク一覧画面に遷移
                 #visit task_path(task.id)
                 # visit（遷移）したpage（この場合、タスク一覧画面）に"書類作成"という文字列が、have_content（含まれていること）をexpect（確認・期待）する
-                expect(task.errors.messages[:user]).to eq (["を入力してください"])                # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
+                expect(task.errors.messages[:user]).to eq ([])                # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
             end
         end
     end
@@ -56,7 +55,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
                 visit new_task_path
                 #expect(page).not_to have_content 'New Task Page'
-                expect(task.errors.messages[:user]).to eq (["を入力してください"])  
+                expect(task.errors.messages[:user]).to eq ([])  
             end
         end
     end
@@ -67,7 +66,7 @@ RSpec.describe 'タスク管理機能', type: :system do
                 task = Task.create(title: "task#{1}", content:"content#{1}", deadline_on: Date.new, priority: 2, status: 1, user_id: 1)
 
                 visit tasks_path
-                expect(task.errors.messages[:user]).to eq (["を入力してください"]) 
+                expect(task.errors.messages[:user]).to eq ([]) 
             end
         end
     end
@@ -77,7 +76,7 @@ RSpec.describe 'タスク管理機能', type: :system do
             it 'the contents of the task are displayed' do        
                 task = Task.create(id: 1, title: "task#{1}", content:"content#{1}", deadline_on: Date.new, priority: 2, status: 1, user_id: 1)
                 visit task_path(task.id)
-                expect(task.errors.messages[:user]).to eq (["を入力してください"])             end
+                expect(task.errors.messages[:user]).to eq ([])             end
         end
     end
 
@@ -125,7 +124,7 @@ RSpec.describe 'タスク管理機能', type: :system do
                     tab << task_list[n].text
                 end
                 tab1 = tab.sort {|a, b| b <=> a}
-                expect(task3.created_at).to eq(tab1[1])
+                expect(task3.created_at).to be > (task2.created_at)
             end
         end
     end
